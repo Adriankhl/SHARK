@@ -13,6 +13,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     scheduler_list,
     scheduler_list_cpu_only,
     predefined_models,
@@ -455,7 +456,7 @@ with gr.Blocks(title="Text-to-Image", css=dark_theme) as txt2img_web:
                                 value=default_settings.get(
                                     "txt2img_custom_model"
                                 ),
-                                choices=get_custom_model_files()
+                                choices=get_custom_model_files() + get_saved_models()
                                 + predefined_models,
                                 allow_custom_value=True,
                                 scale=11,

@@ -9,6 +9,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     get_custom_vae_or_lora_weights,
     scheduler_list,
     predefined_models,
@@ -52,6 +53,7 @@ with gr.Blocks(title="Lora Training") as lora_train_web:
                                 ),
                                 choices=["None"]
                                 + get_custom_model_files()
+                                + get_saved_models()
                                 + predefined_models,
                                 allow_custom_value=True,
                             )

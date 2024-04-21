@@ -10,6 +10,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     scheduler_list,
     predefined_sdxl_models,
     cancel_sd,
@@ -269,7 +270,7 @@ with gr.Blocks(title="Text-to-Image-SDXL", theme=theme) as txt2img_sdxl_web:
                                 choices=predefined_sdxl_models
                                 + get_custom_model_files(
                                     custom_checkpoint_type="sdxl"
-                                ),
+                                ) + get_saved_models(custom_checkpoint_type="sdxl"),
                                 allow_custom_value=True,
                                 scale=11,
                             )

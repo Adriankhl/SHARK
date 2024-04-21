@@ -13,6 +13,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     scheduler_list_cpu_only,
     predefined_paint_models,
     cancel_sd,
@@ -267,6 +268,7 @@ with gr.Blocks(title="Outpainting") as outpaint_web:
                         choices=get_custom_model_files(
                             custom_checkpoint_type="inpainting"
                         )
+                        + get_saved_models(custom_checkpoint_type="inpainting")
                         + predefined_paint_models,
                         allow_custom_value=True,
                         scale=2,

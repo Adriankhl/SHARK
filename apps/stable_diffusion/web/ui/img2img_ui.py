@@ -17,6 +17,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     scheduler_list_cpu_only,
     predefined_models,
     cancel_sd,
@@ -360,7 +361,7 @@ with gr.Blocks(title="Image-to-Image") as img2img_web:
                             if args.ckpt_loc
                             else "stabilityai/stable-diffusion-2-1-base"
                         ),
-                        choices=get_custom_model_files() + predefined_models,
+                        choices=get_custom_model_files() + get_saved_models() + predefined_models,
                         allow_custom_value=True,
                         scale=2,
                     )

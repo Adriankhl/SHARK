@@ -9,6 +9,7 @@ from apps.stable_diffusion.web.ui.utils import (
     nodlogo_loc,
     get_custom_model_path,
     get_custom_model_files,
+    get_saved_models,
     scheduler_list_cpu_only,
     predefined_upscaler_models,
     cancel_sd,
@@ -288,6 +289,7 @@ with gr.Blocks(title="Upscaler") as upscaler_web:
                         choices=get_custom_model_files(
                             custom_checkpoint_type="upscaler"
                         )
+                        + get_saved_models(custom_checkpoint_type="upscaler")
                         + predefined_upscaler_models,
                         allow_custom_value=True,
                         scale=2,

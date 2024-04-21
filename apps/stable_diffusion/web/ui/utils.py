@@ -173,12 +173,53 @@ def get_custom_model_files(model="models", custom_checkpoint_type=""):
                     val
                     for val in files
                     if not (
-                        val.endswith("inpainting" + extn.removeprefix("*"))
-                        or val.endswith("upscaler" + extn.removeprefix("*"))
+                            val.endswith("inpainting" + extn.removeprefix("*"))
+                            or val.endswith("upscaler" + extn.removeprefix("*"))
                     )
                 ]
         ckpt_files.extend(files)
     return sorted(ckpt_files, key=str.casefold)
+
+
+def get_saved_models(custom_checkpoint_type=""):
+    variants_path = os.path.join(os.getcwd(), "variants.json")
+    names = []
+    if os.path.exists(variants_path):
+        with open(variants_path, "r", encoding="utf-8") as jsonFile:
+            json_data = json.load(jsonFile)
+            # Return with base_model's info if base_model is "".
+            for key in json_data:
+                if (key != "stabilityai/stable-diffusion-2-1-base"):
+                    names.append(key)
+    match custom_checkpoint_type:
+        case "sdxl":
+            names = [
+                val
+                for val in names
+                if any(x in val for x in ["XL", "xl", "Xl"])
+            ]
+        case "inpainting":
+            names = [
+                val
+                for val in names
+                if val.endswith("inpainting")
+            ]
+        case "upscaler":
+            names = [
+                val
+                for val in names
+                if val.endswith("upscaler")
+            ]
+        case _:
+            names = [
+                val
+                for val in names
+                if not (
+                        val.endswith("inpainting")
+                        or val.endswith("upscaler")
+                )
+            ]
+    return names
 
 
 def get_custom_vae_or_lora_weights(weights, model):
@@ -389,7 +430,6 @@ default_configs = {
         ),
     ],
 }
-
 
 nodlogo_loc = resource_path("logos/nod-logo.png")
 nodicon_loc = resource_path("logos/nod-icon.png")
